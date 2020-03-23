@@ -25,7 +25,7 @@
     <div class="bodyline">
        <div class="main_img main_img1">
             <div class="main_top">
-               <img src="img/main_5.jpg" alt="">
+               <img src="img/main_1.jpg" alt="">
                <img src="img/01.jpg" alt="">
                <img src="img/main_6.jpg" alt="">
                <img src="img/06.jpg" alt="">
@@ -33,7 +33,7 @@
        </div>
        <div class="main_img main_img2">
             <div class="main_bottom">
-               <img src="img/main_5.jpg" alt="">
+               <img src="img/main_1.jpg" alt="">
                <img src="img/01.jpg" alt="">
                <img src="img/main_6.jpg" alt="">
                <img src="img/06.jpg" alt="">
@@ -578,21 +578,12 @@
 <script src="link/jquery.easing.1.3.js"></script>
 <script src="link/jquery.mousewheel.js"></script>
 <script>
+var i = 0;
 var i_eq = 0; 
 var menu_eq = 0;
     
 $(document).ready(function(){
     win_w = $(window).width();
-//    win_h = $(window).height();
-//    alert(win_w + " / " + win_h )
-    $('.sec98 .tool img').hide();
-    $('.titleTop_n').eq(i_eq-1).css({top:-120+'%'});
-    $('.titleBottom_n').eq(i_eq-1).css({top:100+'%'});
-    $('.me_menu li').eq(0).css('color','white');
-    $('.me_menu li').not($('.me_menu li').eq(0)).css('color','rgba(154, 154, 154, 0.54)');
-    $('.Fbtn').css({opacity:'0'});
-    $('.cover_prev,.cover_next').hide();
-    $('.main_img1 img, .main_img2 img').hide();
      $('.alarm img').eq(0).delay(300).fadeIn();
          $('.alarm img').eq(1).delay(1800).fadeIn();
          $('.alarm img').eq(2).delay(8000).fadeIn();
@@ -603,19 +594,18 @@ $(document).ready(function(){
     });
 })
     
-   
+//메인 마우스 휠 알리는 커서
 $('.cover').on('mousemove',function(){
-//    $('html').css('cursor','none');
     $('.cursor1').stop().show();
     thisx = event.pageX;
     thisy = event.pageY;
-//    console.log(event.pageX);   //윈도우창,=브라우저에서의 위치값 
     $('.cursor1').offset({left:thisx, top:thisy});
 })    
 $('.cover').on('mouseleave',function(){
     $('html').css('cursor','default');
     $('.cursor1').hide();
 }) 
+//메인 마우스 호버 효과    
 $('.titleTop_box, .viewProject_btn').mouseenter(function(){
      $('.cursor1').addClass('cs_hover');
      $('.cursor1 span').hide();
@@ -626,14 +616,7 @@ $('.titleTop_box, .viewProject_btn').mouseleave(function(){
 });
     
     
-    
-    
-    
-    
-$('.pop_off').click(function(){
-    $('.popup_index').fadeOut();
-})
-    
+//메인에서 휠
 $('.cover').on('mousewheel DomMouseScroll', function(e,delta){
     console.log(event.wheelDelta);  
     e.preventDefault();
@@ -643,8 +626,6 @@ $('.cover').on('mousewheel DomMouseScroll', function(e,delta){
         i_eq++;
         i_eq=i_eq%4;
         main_slide();
-       
-		
 	} else if(event.wheelDelta>0 && !moving){
         main_slide_initial();
 		i_eq--;
@@ -652,20 +633,18 @@ $('.cover').on('mousewheel DomMouseScroll', function(e,delta){
 		main_slide();
 	}
 });    
+//초기값 설정
 function main_slide_initial(){
     $('.titleP_box span').eq(i_eq).fadeOut();
     $('.viewPro_n').eq(i_eq).fadeOut();
     $('.titleTop_n').eq(i_eq).stop().animate({top:-120+'%'});
     $('.titleBottom_n').eq(i_eq).stop().animate({top:100+'%'});
-    
-}
+}    
+//메인 애니    
 function main_slide(){
     $('.linebox').fadeIn();
-    console.log('초기값 / i_eq :'+i_eq);
-//    $('.linebox .line').css({left:100+'%'});
     $('.circle').stop().animate({opacity:'0'},500);
     $('.linebox .line').stop().animate({left:100+'vw'},500);
-//    $('.visit_now_n').hide();
     $('.main_img1 img, .main_img2 img').hide();
     $('.main_top, .main_bottom').css({'width':'0',height:'0'});
         $('.main_img1 img').eq(i_eq).show();
@@ -673,7 +652,6 @@ function main_slide(){
         $('.main_top').stop().animate({width:100+'vw',height:50+'vh'},700,'easeInOutCubic');
         $('.main_bottom').stop().animate({width:100+'vw',height:50+'vh'},700,'easeInOutCubic',function(){
             $('.number ul').stop().animate({top:-40*i_eq+'px'},400);
-            //    main ani
             $('.contents2 li').eq(i_eq).find('.cont2_txt').fadeIn(1000)
             $('.contents2 li').not($('.contents2 li').eq(i_eq)).find('.cont2_txt').hide();
 
@@ -703,9 +681,10 @@ function main_slide(){
                 $('.cover_prev').fadeIn();
                 $('.cover_next').fadeIn();
             }
-         });
-    
+     });
 }    
+
+//메인에서의 버튼들 클릭시(+호버)  
 $('.cover_prev').click(function(){
     main_slide_initial()
     i_eq--;
@@ -748,11 +727,10 @@ $('.viewProject_btn').mouseleave(function(){
     $('.viewPro_n').stop().animate({'right':'0'},500)
 });
     
-//메뉴들어가기 *******************************************//   
-$('.viewProject_btn, .titleBottom_box, .titleTop_box,.titleBottom_box').click(function(){
-    //메뉴 슬라이더 기본값 세팅
+//메뉴들어가기//   
+$('.viewProject_btn, .titleBottom_box, .titleTop_box').click(function(){
     menu_eq=0;
-    if(i_eq==0){
+    if(i_eq==0){   //메뉴1은 자기소개여서 내용이 다름
         $('.sec98 .tool img').hide();
          $('.sec98').stop().animate({'left':'0'},500,'easeInOutExpo',function(){
              $('.sec98 .tool1 .line').stop().animate({'height':'100px'},1200);
@@ -764,13 +742,13 @@ $('.viewProject_btn, .titleBottom_box, .titleTop_box,.titleBottom_box').click(fu
          }); 
          $('.ham').addClass('meee')
     }else if(i_eq>0){
+        //메뉴 슬라이더 기본값 세팅
         console.log('i_eq:'+i_eq + '/ menu_eq :'+menu_eq);
         active_menu = $('._menu').eq(i_eq);
         $('.menu .col2').css({'top':'0'})
         // 메뉴 슬라이더 나오기 + 나온 후 
         active_menu.find('._menu1-ntitle').hide(0,function(){
-        active_menu.find('._menu1-ntitle').eq(menu_eq).fadeIn();
-
+            active_menu.find('._menu1-ntitle').eq(menu_eq).fadeIn();
         });
         $('.menu ._menu').eq(i_eq).show();
         $('.menu ._menu').not($('.menu ._menu').eq(i_eq)).hide();
@@ -780,9 +758,6 @@ $('.viewProject_btn, .titleBottom_box, .titleTop_box,.titleBottom_box').click(fu
     }
     
 });
-//메뉴들어가서 휠
-    
-    
 function menu_slide(){
     active_menu = $('._menu').eq(i_eq);
     active_menu.find('.col2').stop().animate({top:-menu_eq*100+'vh'},400);
@@ -791,10 +766,10 @@ function menu_slide(){
     });
 }
     
+    
+//메뉴들어가서 휠
 $('.menu').on('mousewheel DomMouseScroll', function(e,delta){
-//    console.log(event.wheelDelta);
     console.log(i_eq+"/"+menu_eq);
-//    e.preventDefault();
 	moving=$('html, div').is(':animated');
 	if(event.wheelDelta<0 && !moving ){    //휠내릴때 
         if(menu_eq<0 && i_eq==1 && i_eq==3){        //0.웹 + 2.아트웤 0위로 못가게
@@ -839,7 +814,7 @@ $('.menu').on('mousewheel DomMouseScroll', function(e,delta){
     
     
     
-//메뉴들어가서 버튼들
+//메뉴들어가서 버튼들 클릭시
 $('.btn4').click(function(){
     console.log(i_eq+" / "+menu_eq)
     if(menu_eq<0 && i_eq==1 && i_eq==3){    //0.웹 + 2.아트웤 위로 못가게
@@ -892,6 +867,8 @@ $('.menu .ms_view').click(function(){
     $('body').css({'overflow-y':'visible','position':'relative'})
     $('.items_view').css({'top':200+'vh'})
     more__();
+    
+    //화면사이즈 작을 때
     if(win_w<1280 || win_w==1280){
         active_eq.find('.col2 img').stop().animate({'right':'600px'},500);
         active_eq.find('.col3').stop().animate({'left':'-380px'},800);
@@ -1009,109 +986,8 @@ $(document).on('click','.ham',function(){
             break;
      }
 });
-//아트워크 바로가기 클릭시 
-$('.visit_artwork li').click(function(){
-    menu_eq = $(this).index();
-    console.log(menu_eq)
-    $('.ham').addClass('work_open');
-    $('.work').show();
-    active_eq =  $('.work .work_n').eq(menu_eq);
-    $('.work .w_black').fadeIn(1000);
-    active_eq.find('.wm_photo img').eq(0).show();
-    active_eq.find('.wm_txt').show();
-    active_eq.find('.ws_txt').show();
-    // 첫번째이미지만 보이고 내려오게
-    $('.w_line1').stop().animate({'left':'0'},1000)
-    $('.w_line2').stop().animate({'right':'0'},1000,function(){
-       active_eq.find('.w_title1').css({'opacity':'1',transition:'1s'})
-       active_eq.find('.wm_tn').eq(0).fadeIn();
-       active_eq.find('.ws_tn').eq(0).fadeIn(); 
-        if(menu_eq==0){
-            active_eq.find('.wm_photo').animate({'top':'0'},500) 
-           if(win_w<1281){
-                  active_eq.find('.ws_photo').animate({'bottom':'230px'},500)
-            }else {
-                 active_eq.find('.ws_photo').animate({'bottom':'150px'},500)
-            }
-        } else if(menu_eq==1){
-            active_eq.find('.ws_photo').animate({'bottom':'150px'},500)
-            if(win_w<1281){
-                active_eq.find('.wm_photo').animate({'top':'150px'},500) 
-            } else{
-            active_eq.find('.wm_photo').animate({'top':'300px'},500)  }
-         }else if(menu_eq==2){
-             active_eq.find('.wm_photo').animate({'top':'0'},500) 
-             if(win_w<1281){
-                  active_eq.find('.ws_photo').animate({'bottom':'230px'},500)
-             }else {
-                 active_eq.find('.ws_photo').animate({'bottom':'150px'},500)
-             }
-         }
-    })
-})    
-//메뉴 안에서 아트워크 클릭시//
-//$('.ms_view2').click(function(){
-//    menu_eq = $(this).parents('.wrap_box').index();
-//    $('.ham').addClass('work_open');
-//    $('.work').show();
-//    win_w = $(window).width();
-//    active_eq =  $('.work .work_n').eq(menu_eq);
-//    $('.work .w_black').fadeIn(1000);
-//    active_eq.find('.wm_photo img').eq(0).show();
-//    active_eq.find('.wm_txt').show();
-//    active_eq.find('.ws_txt').show();
-//    // 첫번째이미지만 보이고 내려오게
-//    $('.w_line1').stop().animate({'left':'0'},1000)
-//    $('.w_line2').stop().animate({'right':'0'},1000,function(){
-//       active_eq.find('.w_title1').css({'opacity':'1',transition:'1s'})
-//       active_eq.find('.wm_tn').eq(0).fadeIn();
-//       active_eq.find('.ws_tn').eq(0).fadeIn(); 
-//        if(menu_eq==0){
-//            if(win_w<1280){
-//                  active_eq.find('.ws_photo').animate({'bottom':'300px'},500)
-//                  active_eq.find('.wm_photo').animate({'top':'0'},500)
-//            }else {
-//                console.log('dfadsf')
-//                 active_eq.find('.ws_photo').animate({'bottom':'120px'},500)
-//                 active_eq.find('.wm_photo').animate({'top':'0'},500) 
-//            }
-//        } else if(menu_eq==1){
-//            active_eq.find('.ws_photo').animate({'bottom':'150px'},500)
-//            active_eq.find('.wm_photo').animate({'top':'300px'},500)
-//        } else if(menu_eq==2){
-//            active_eq.find('.ws_photo').animate({'bottom':'150px'},500)
-//            active_eq.find('.wm_photo').animate({'top':'100px'},500)
-//        } 
-//    })
-//});  
-//아트워크 이미지 클릭시
-$('.ws_photo img').click(function(){
-    mini = $(this).index();
-    active_mini = $('.work_n').eq(menu_eq);
-    console.log(menu_eq+'/'+mini);
-    active_mini.find('.wm_photo img').eq(mini).fadeIn();
-    active_mini.find('.wm_photo img').not(active_mini.find('.wm_photo img').eq(mini)).hide();
-    active_mini.find('.wm_tn').eq(mini).fadeIn();
-    active_mini.find('.wm_tn').not(active_mini.find('.wm_tn').eq(mini)).fadeOut();
-    active_mini.find('.ws_tn').eq(mini).fadeIn();
-    active_mini.find('.ws_tn').not(active_mini.find('.ws_tn').eq(mini)).fadeOut();
-})    
-//어바웃미 
-$('.me_close').click(function(){
-    $('.about .black').fadeOut(); 
-    $('.me_contain').fadeOut(function(){
-        $('.sec99').hide();  
-    });
-});
-$('.me_menu li').click(function(){
-    me_eq = $(this).index();
-    $('.me_menu li').eq(me_eq).css('color','white');
-    $('.me_menu li').not($('.me_menu li').eq(me_eq)).css('color','rgba(154, 154, 154, 0.54)');
-    
-    $('.me_txtbox .me_txtn').eq(me_eq).fadeIn();
-    $('.me_txtbox .me_txtn').not($('.me_txtbox .me_txtn').eq(me_eq)).fadeOut();
-})   
 
+//모바일 접속시 모바일버전으로 보이게 (수정중)
 var uAgent = navigator.userAgent.toLowerCase(); 
 var mobilePhones = new Array('iphone','android','blackberry','windows ce','nokia','webos','opera mini','sonyericsson','opera mobi','iemobile');
     for (var i=0; i < mobilePhones.length; i++) { 
@@ -1119,17 +995,11 @@ var mobilePhones = new Array('iphone','android','blackberry','windows ce','nokia
             document.location.href = "index_mobile.html"; 
         } 
     } 
-$('.logo').click(function(){
-    main_slide_initial()
-    i_eq=0;
-    main_slide();
-});
-
+//ppt모드 (수정중)
 $('.pptmode').click(function(){
     $('.sec_ppt').stop().fadeIn();
     $('.ham').addClass('ppt_open');
 })  
-    var i = 0;
 $('.sec_ppt .ppt_next').click(function(){
     i++;
     i=i%4;
